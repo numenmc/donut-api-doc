@@ -1,6 +1,10 @@
-import { type Endpoint, URLParameter, RequestMethod, URLParameterDataType } from "../../../type/specificationType";
+import {
+  type Endpoint,
+  URLParameter,
+  RequestMethod,
+  URLParameterDataType
+} from "../../../type/specificationType";
 import { unknownPageResponse } from "../../auction/auctionUnknownPageResponse";
-import { shulkerItem } from "../../auction/itemSpec";
 import { player } from "../../common/playerSpec";
 import { unauthorizedResponse } from "../../common/unauthorizedResponse";
 
@@ -8,21 +12,20 @@ export const leaderboard_broken_blocks_v1_endpoint: Endpoint = {
   endpoint: ["v1", "leaderboards", "brokenblocks", new URLParameter("page")],
   method: RequestMethod.GET,
   description: "Get the leaderboards for the most blocks broken.",
-  remarks: [
-    "Each page is always 45 players long",
-  ],
+  remarks: ["Each page is always 45 players long"],
   urlParameters: {
     page: {
       type: URLParameterDataType.NUMBER,
       description: "The page number to retrieve.",
-      remarks: ["The page offset starts at 1"],
-    },
+      remarks: ["The page offset starts at 1"]
+    }
   },
   responses: [
     {
       status: 200,
       synopsis: "Successful request",
-      description: "A leaderboard page for the specified leaderboard is returned on successful request.",
+      description:
+        "A leaderboard page for the specified leaderboard is returned on successful request.",
       remarks: [],
       bodyJson: {
         name: "BrokenBlocksLeaderboardData",
@@ -37,23 +40,23 @@ export const leaderboard_broken_blocks_v1_endpoint: Endpoint = {
                   fields: [
                     ...player.fields,
                     {
-                        name: "value",
-                        type: { kind: "primitive", name: "number" },
-                        description: "The number of blocks the player has broken"
+                      name: "value",
+                      type: { kind: "primitive", name: "number" },
+                      description: "The number of blocks the player has broken"
                     }
-                  ],
-                },
-              },
-            },
+                  ]
+                }
+              }
+            }
           },
           {
             name: "status",
-            type: { kind: "static", value: 200 },
-          },
-        ],
-      },
+            type: { kind: "static", value: 200 }
+          }
+        ]
+      }
     },
     unauthorizedResponse,
     unknownPageResponse
-  ],
+  ]
 };

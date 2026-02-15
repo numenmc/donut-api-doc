@@ -16,7 +16,6 @@
 <li>
   {#if $$slots.default}
     <!-- svelte-ignore a11y_click_events_have_key_events -->
-    <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
     <!-- svelte-ignore a11y_no_static_element_interactions -->
     <span class="tv-node d-flex" bind:this={tvNodeRef} on:click={toggle}>
       <div>
@@ -24,7 +23,10 @@
           {@html title}
         </div>
         {#if comment.trim() != ""}
-          <div class={`mb-3 ${unstable ? "text-danger" : ""}`} style="color: white; font-size: 1.1em;">
+          <div
+            class={`mb-3 ${unstable ? "text-danger" : ""}`}
+            style="color: white; font-size: 1.1em;"
+          >
             {@html comment}
           </div>
         {/if}
@@ -37,7 +39,10 @@
     <div class="tv-node-unnested">
       <div style="font-family: 'JetBrains Mono', monospace;">{@html title}</div>
       {#if comment.trim() != ""}
-        <div class={`mb-3 ${unstable ? "text-danger" : ""}`} style="color: white; font-size: 1.1em;">
+        <div
+          class={`mb-3 ${unstable ? "text-danger" : ""}`}
+          style="color: white; font-size: 1.1em;"
+        >
           {@html comment}
         </div>
       {/if}

@@ -5,7 +5,7 @@ export const unauthorizedResponse: Response = {
   synopsis: "Unauthorized",
   description:
     "The API does not complete the query because an API key hasn't been included in the Authorization header, or because the API key provided is invalid.",
-    remarks: [],
+  remarks: [],
   bodyJson: {
     name: "UnauthorizedResponse",
     fields: [
@@ -13,17 +13,17 @@ export const unauthorizedResponse: Response = {
         name: "message",
         type: {
           kind: "static",
-          value: "Please generate an API Key in game with /api",
-        },
+          value: "Please generate an API Key in game with /api"
+        }
       },
       {
         name: "reason",
-        type: { kind: "static", value: "Unauthorized" },
+        type: { kind: "static", value: "Unauthorized" }
       },
       {
         name: "status",
-        type: { kind: "static", value: 401 },
-      },
-    ],
-  },
+        type: { kind: "static", value: 401 }
+      }
+    ]
+  }
 };

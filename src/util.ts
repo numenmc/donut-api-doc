@@ -7,6 +7,6 @@ export function removeTrailingSlash(url: string) {
 export function getMethodColor(endpoint: Endpoint) {
   return {
     GET: "primary",
-    POST: "success",
+    POST: "success"
   }[endpoint.method];
 }

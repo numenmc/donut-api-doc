@@ -5,7 +5,7 @@ export type TypeRef =
   | { kind: "object"; schema: Schema }
   | { kind: "array"; of: TypeRef }
   | { kind: "union"; values: string[] }
-  | { kind: "record"; key: TypeRef, value: TypeRef }
+  | { kind: "record"; key: TypeRef; value: TypeRef }
   | { kind: "static"; value: number | string };
 
 export interface Field {

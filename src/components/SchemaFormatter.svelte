@@ -1,11 +1,5 @@
 <script lang="ts">
-  import {
-    Button,
-    Modal,
-    ModalBody,
-    ModalFooter,
-    ModalHeader,
-  } from "@sveltestrap/sveltestrap";
+  import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "@sveltestrap/sveltestrap";
   import type { Field, Schema, TypeRef } from "../type/schemaType";
   import SchemaRenderer from "./SchemaRenderer.svelte";
   import TreeViewNode from "./TreeViewNode.svelte";
@@ -43,9 +37,7 @@
       case "object": {
         if (!typeRef.schema.fields.length) return "{}";
 
-        const inner = typeRef.schema.fields
-          .map((f) => fieldToLine(f, depth + 1))
-          .join("\n");
+        const inner = typeRef.schema.fields.map((f) => fieldToLine(f, depth + 1)).join("\n");
 
         return `{\n${inner}\n${pad(depth)}}`;
       }
@@ -75,20 +67,13 @@
   }
 </script>
 
-<Modal
-  isOpen={open}
-  toggle={() => (open = !open)}
-  class="modal-dialog-centered"
-  size="lg"
->
+<Modal isOpen={open} toggle={() => (open = !open)} class="modal-dialog-centered" size="lg">
   <ModalHeader>Generated TypeScript declaration</ModalHeader>
   <ModalBody>
-    <pre
-      class="cb p-3"
-      style="max-height: 500px; overflow: auto;">interface {schema.name ??
+    <pre class="cb p-3" style="max-height: 500px; overflow: auto;">interface {schema.name ??
         "Typings"} {typeRefToLine({
         kind: "object",
-        schema,
+        schema
       })}</pre>
   </ModalBody>
   <ModalFooter>

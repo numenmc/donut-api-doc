@@ -16,7 +16,7 @@
     type: "#4ec9b0",
     string: "#ce9178",
     number: "#b5cea8",
-    keyword: "#569cd6",
+    keyword: "#569cd6"
   } as const;
 
   function isRequired(f: Field) {
@@ -107,9 +107,5 @@
     {/each}
   </TreeViewNode>
 {:else}
-  <TreeViewNode
-    title={titleLeaf}
-    comment={field.description ?? ""}
-    unstable={field.unstable}
-  />
+  <TreeViewNode title={titleLeaf} comment={field.description ?? ""} unstable={field.unstable} />
 {/if}

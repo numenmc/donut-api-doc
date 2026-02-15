@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Badge, Button, TabContent, TabPane } from "@sveltestrap/sveltestrap";
+  import { Badge, Button } from "@sveltestrap/sveltestrap";
   import { URLParameter, type Endpoint } from "../type/specificationType";
   import { CheckLg, Copy } from "svelte-bootstrap-icons";
   import { getMethodColor, removeTrailingSlash } from "../util";
@@ -22,9 +22,7 @@
     navigator.clipboard.writeText(
       removeTrailingSlash(specification.baseUrl) +
         "/" +
-        endpoint.endpoint
-          .map((i) => (i instanceof URLParameter ? `{${i.name}}` : i))
-          .join("/"),
+        endpoint.endpoint.map((i) => (i instanceof URLParameter ? `{${i.name}}` : i)).join("/")
     );
   }
 </script>
@@ -36,7 +34,7 @@
     </div>
 
     <span>/</span>
-    {#each endpoint.endpoint as segment, i}
+    {#each endpoint.endpoint as segment, i (i)}
       {#if segment instanceof URLParameter}
         <span class="param">&#123;{segment.name}&#125;</span>
       {:else}
@@ -62,7 +60,7 @@
   <p class="lead mb-0">{endpoint.description}</p>
   {#if endpoint.remarks.length > 0}
     <ul class="doc-pf">
-      {#each endpoint.remarks as rm}
+      {#each endpoint.remarks as rm (rm)}
         <li>{@html rm}</li>
       {/each}
     </ul>
@@ -71,14 +69,14 @@
   {#if Object.keys(endpoint.urlParameters).length > 0}
     <h3 class="mt-4">URL Path Parameters</h3>
     <div style="display: flex; flex-direction: column; gap: 1em;">
-      {#each Object.entries(endpoint.urlParameters) as [pn, pv]}
+      {#each Object.entries(endpoint.urlParameters) as [pn, pv] (pn)}
         <div>
           <h5><code>&#123;{pn}&#125;</code> - {pv.type}</h5>
 
           <p class="lead mb-0">{pv.description}</p>
           {#if pv.remarks.length > 0}
             <ul class="doc-pf">
-              {#each pv.remarks as rm}
+              {#each pv.remarks as rm (rm)}
                 <li>{@html rm}</li>
               {/each}
             </ul>
@@ -97,13 +95,13 @@
   <h3 class="mt-4">Responses</h3>
 
   <div class="d-flex flex-column" style="gap: 1em;">
-    {#each endpoint.responses as response}
+    {#each endpoint.responses as response (`${response.status} ${response.synopsis}`)}
       <div>
         <h5>{response.status} - {response.synopsis}</h5>
         <p class="lead mb-0">{response.description}</p>
         {#if response.remarks.length > 0}
           <ul class="doc-pf">
-            {#each response.remarks as rm}
+            {#each response.remarks as rm (rm)}
               <li>{@html rm}</li>
             {/each}
           </ul>
