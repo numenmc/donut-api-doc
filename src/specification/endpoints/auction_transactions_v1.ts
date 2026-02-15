@@ -1,51 +1,31 @@
-import { RequestMethod, URLParameter, URLParameterDataType, type Endpoint } from "../../type/specificationType";
+import {
+  RequestMethod,
+  URLParameter,
+  URLParameterDataType,
+  type Endpoint,
+} from "../../type/specificationType";
 import { unknownPageResponse } from "../auction/auctionUnknownPageResponse";
 import { item, shulkerItem } from "../auction/itemSpec";
 import { player } from "../common/playerSpec";
 import { unauthorizedResponse } from "../common/unauthorizedResponse";
 
-export const auction_list_v1_endpoint: Endpoint = {
-  endpoint: ["v1", "auction", "list", new URLParameter("page")],
+export const auction_transactions_v1_endpoint: Endpoint = {
+  endpoint: ["v1", "auction", "transactions", new URLParameter("page")],
   method: RequestMethod.POST,
-  description: "Retrieve a page of Auction House entries.",
+  description:
+    "Retrieve a list of recent transactions made on the Auction House.",
   remarks: [
-    "Each page is always 44 items long",
-    "In the event where a page has less than 44 items, the <code>result</code> array is padded with <code>null</code>",
+    "In this context, a transaction refers to an item on the Auction House being bought by someone",
+    "Transactions are ordered by the date sold",
   ],
   urlParameters: {
     page: {
       type: URLParameterDataType.NUMBER,
       description: "The page number to retrieve.",
-      remarks: ["The page offset starts at 1"],
-    },
-  },
-  bodyJson: {
-    description:
-      "The request body can contain optional search and sorting options.",
-    remarks: [],
-    schema: {
-        name: "AuctionListRequestOptions",
-      fields: [
-        {
-          name: "search",
-          required: false,
-          type: { kind: "primitive", name: "string" },
-          description:
-            "This matches the username as well as the item IDs and display names (if applicable).",
-        },
-        {
-          name: "sort",
-          required: false,
-          type: {
-            kind: "union",
-            values: [
-              "lowest_price",
-              "highest_price",
-              "recently_listed",
-              "last_listed",
-            ],
-          },
-        },
+      remarks: [
+        "The page offset starts at 1",
+        "The maximum page you can retrieve is 10",
+        "There are 100 transactions per page",
       ],
     },
   },
@@ -53,10 +33,10 @@ export const auction_list_v1_endpoint: Endpoint = {
     {
       status: 200,
       synopsis: "Successful request",
-      description: "Auction data is returned on successful request.",
+      description: "Recent auction transactions are returned on successful request.",
       remarks: [],
       bodyJson: {
-        name: "AuctionListSuccessfulResponse",
+        name: "AuctionTransactionsSuccessfulResponse",
         fields: [
           {
             name: "result",
@@ -70,7 +50,7 @@ export const auction_list_v1_endpoint: Endpoint = {
                       name: "item",
                       type: { kind: "object", schema: shulkerItem },
                       description:
-                        "Information about the item being sold is stored here.",
+                        "Information about the sold item is stored here.",
                     },
                     {
                       name: "seller",
@@ -85,10 +65,10 @@ export const auction_list_v1_endpoint: Endpoint = {
                         "The exact listing price of the item being sold.",
                     },
                     {
-                      name: "time_left",
+                      name: "unixMillisDateSold",
                       type: { kind: "primitive", name: "number" },
                       description:
-                        "The time from now until the entry is removed, in milliseconds.",
+                        "The unix timestamp when the item was sold, in milliseconds.",
                     },
                   ],
                 },
@@ -103,6 +83,6 @@ export const auction_list_v1_endpoint: Endpoint = {
       },
     },
     unauthorizedResponse,
-    unknownPageResponse
+    unknownPageResponse,
   ],
 };

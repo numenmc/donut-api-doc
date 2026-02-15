@@ -9,10 +9,15 @@
     Row,
     CardFooter,
     Alert,
+    Badge,
+    ListGroup,
+    ListGroupItem,
+    Button,
   } from "@sveltestrap/sveltestrap";
 
   import {
     ExclamationCircleFill,
+    Github,
     QuestionCircleFill,
   } from "svelte-bootstrap-icons";
 
@@ -29,27 +34,58 @@
   import "@fontsource/jetbrains-mono/500";
 
   import { specification } from "./specification/specification";
-  import Endpoint from "./components/Endpoint.svelte";
+  import EndpointRenderer from "./components/EndpointRenderer.svelte";
+  import { URLParameter, type Endpoint } from "./type/specificationType";
+  import { getMethodColor } from "./util";
+
+  function getEndpointId(endpoint: Endpoint) {
+    return `${endpoint.method}_${endpoint.endpoint.map((a) => (a instanceof URLParameter ? a.name : a)).join("_")}`;
+  }
 </script>
 
 <main class="app">
-  <Container class="pt-5 pb-5">
+  <Container fluid class="pt-5 pb-5" style="max-width: 1500px;">
     <Row class="g-4">
       <Col md="4" lg="3">
         <div class="sticky">
-          <Card class="mb-4">
-            <CardHeader>
-              <CardTitle class="mb-0">Contents</CardTitle>
-            </CardHeader>
+          <ListGroup class="mb-4">
+            {#each specification.endpoints as endpoint}
+              <ListGroupItem
+                tag="a"
+                href={`#${getEndpointId(endpoint)}`}
+                action
+              >
+                <div class="contents-list-item">
+                  <div class="contents-list-b">
+                    <Badge color={getMethodColor(endpoint)} style="width: 100%;"
+                      >{endpoint.method}</Badge
+                    >
+                  </div>
+                  <div class="contents-list-t">
+                    {`/${endpoint.endpoint.map((a) => (a instanceof URLParameter ? `{${a.name}}` : a)).join("/")}`}
+                  </div>
+                </div>
+              </ListGroupItem>
+            {/each}
+          </ListGroup>
 
-            <CardBody>TODO</CardBody>
+          <div class="mb-4">
+            <a class="btn btn-primary btn-sm" href="https://github.com/numenmc/donut-api-doc">
+              <Github class="icon mr-1"></Github>
+              Source Code
+            </a>
+            <a class="btn btn-secondary btn-sm" href="https://github.com/numenmc/donut-api-doc/issues">
+              <Github class="icon mr-1"></Github>
+              Issues
+            </a>
+          </div>
 
-            <CardFooter>
-              <a href="https://github.com/numenmc/donut-api-doc">
-                Contribute on GitHub
-              </a>
-            </CardFooter>
-          </Card>
+          <p
+            style="font-size: 8pt; text-transform: uppercase; letter-spacing: 10%; margin-left: 0.3em; margin-right: 0.3em;"
+          >
+            This website is not affiliated with, endorsed by, or sponsored by
+            DonutSMP or Minecraft.
+          </p>
         </div>
       </Col>
 
@@ -63,12 +99,13 @@
           >.
         </p>
 
-        <Alert color="primary">
+        <Alert color="info">
           <QuestionCircleFill class="icon r"></QuestionCircleFill>
-          This API's base url is <code>{specification.baseUrl}</code>. To use
-          the endpoints you must retrieve an API key using <code>/api</code>
-          in-game and supplying it to the <code>Authorization</code> header in
-          the format <code>Bearer (token)</code>.
+          This API's base url is <code>{specification.baseUrl}</code>.
+        </Alert>
+        <Alert color="info">
+          <QuestionCircleFill class="icon r"></QuestionCircleFill>
+          Looking for Shield endpoints? They aren't documented here because they are for internal use only.
         </Alert>
         <Alert color="warning">
           <ExclamationCircleFill class="icon r"></ExclamationCircleFill>
@@ -76,12 +113,24 @@
           behaviours originate from the upstream API and are documented as-is.
         </Alert>
 
+        <p class="lead">
+          To use the endpoints you must retrieve an API key using <code
+            >/api</code
+          >
+          in-game and supply it to the <code>Authorization</code> header as a bearer
+          token.
+        </p>
+
         <div style="margin-bottom: 75px;"></div>
         <!-- Spacer -->
 
-        {#each specification.endpoints as endpoint}
-          <Endpoint {endpoint}></Endpoint>
-        {/each}
+        <div style="display: flex; flex-direction: column; gap: 75px;">
+          {#each specification.endpoints as endpoint}
+            <div id={getEndpointId(endpoint)}>
+              <EndpointRenderer {endpoint}></EndpointRenderer>
+            </div>
+          {/each}
+        </div>
       </Col>
     </Row>
   </Container>

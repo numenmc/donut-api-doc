@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { QuestionCircleFill } from "svelte-bootstrap-icons";
-
   export let title: string;
   export let root: boolean = false;
   export let comment: string = "";
@@ -27,7 +25,7 @@
         </div>
         {#if comment.trim() != ""}
           <div class={`mb-3 ${unstable ? "text-danger" : ""}`} style="color: white; font-size: 1.1em;">
-            <QuestionCircleFill class="icon r"></QuestionCircleFill>{@html comment}
+            {@html comment}
           </div>
         {/if}
       </div>
@@ -40,7 +38,7 @@
       <div style="font-family: 'JetBrains Mono', monospace;">{@html title}</div>
       {#if comment.trim() != ""}
         <div class={`mb-3 ${unstable ? "text-danger" : ""}`} style="color: white; font-size: 1.1em;">
-          <QuestionCircleFill class="icon r"></QuestionCircleFill>{@html comment}
+          {@html comment}
         </div>
       {/if}
     </div>

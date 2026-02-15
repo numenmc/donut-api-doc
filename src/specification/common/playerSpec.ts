@@ -5,7 +5,7 @@ export const player: Schema = {
         {
             name: "name",
             type: { kind: "primitive", name: "string" },
-            description: "The current username of the player. This value is stored in lowercase."
+            description: "The current username of the player. This value is stored in lowercase. Bedrock edition players have a username prefixed with a period (full-stop)."
         },
         {
             name: "uuid",

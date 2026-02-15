@@ -2,20 +2,11 @@
   import { Badge, Button, TabContent, TabPane } from "@sveltestrap/sveltestrap";
   import { URLParameter, type Endpoint } from "../type/specificationType";
   import { CheckLg, Copy } from "svelte-bootstrap-icons";
-  import { removeTrailingSlash } from "../util";
+  import { getMethodColor, removeTrailingSlash } from "../util";
   import { specification } from "../specification/specification";
-  import SchemaRenderer from "./SchemaRenderer.svelte";
-  import TreeViewNode from "./TreeViewNode.svelte";
   import SchemaFormatter from "./SchemaFormatter.svelte";
 
   export let endpoint: Endpoint;
-
-  function getMethodColor() {
-    return {
-      GET: "primary",
-      POST: "success",
-    }[endpoint.method];
-  }
 
   let copied = false;
   let timeoutId: number;
@@ -41,7 +32,7 @@
 <div class="p-3 border rounded">
   <h2 class="d-flex gap-2">
     <div style="font-size: 0.8em;">
-      <Badge color={getMethodColor()}>{endpoint.method}</Badge>
+      <Badge color={getMethodColor(endpoint)}>{endpoint.method}</Badge>
     </div>
 
     <span>/</span>
@@ -59,7 +50,7 @@
 
     <div style="flex: 1;"></div>
 
-    <Button color={getMethodColor()} on:click={copyToClipboard}>
+    <Button color={getMethodColor(endpoint)} on:click={copyToClipboard}>
       {#if copied}
         <CheckLg></CheckLg>
       {:else}
