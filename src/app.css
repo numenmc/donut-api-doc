@@ -1,3 +1,79 @@
-* {
+body {
   font-family: Roboto, sans-serif;
+}
+
+.icon {
+  width: 1em;
+  height: 1em;
+
+  transform: translateY(-2px); /* bandaid fix for now */
+}
+
+.icon.r {
+  margin-right: 0.5em;
+}
+
+.doc-pf {
+  margin: 0;
+  padding: 0;
+  list-style-position: inside;
+}
+
+code {
+  color: currentColor;
+  background-color: rgb(10, 10, 10);
+  padding: 4px 5px;
+  border-radius: 5px;
+
+  font-family: "JetBrains Mono", monospace;
+}
+
+.cb {
+  background-color: rgb(10, 10, 10);
+  border-radius: 5px;
+}
+
+.tv-nested {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.tv-node {
+  cursor: pointer;
+  user-select: none;
+
+  position: relative;
+  padding-left: 20px;
+}
+
+.tv-node::before {
+  content: "\25B6";
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  color: currentColor;
+  transition: transform 200ms ease;
+}
+
+.tv-node:hover::before {
+  color: rgb(139, 170, 255);
+}
+
+.tv-node.open::before {
+  transform: rotate(90deg);
+}
+.tv-nested:not(.tv-root) {
+  display: none;
+  margin-left: 32px;
+}
+
+.tv-nested.n-margin:not(.tv-root) {
+  display: none;
+  margin-left: 32px;
+}
+
+.tv-nested.open {
+  display: block;
 }

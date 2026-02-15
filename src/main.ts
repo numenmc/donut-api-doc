@@ -1,5 +1,3 @@
-import "./i18n";
-
 import { mount } from "svelte";
 
 import "./app.css";

@@ -8,7 +8,13 @@
     Container,
     Row,
     CardFooter,
+    Alert,
   } from "@sveltestrap/sveltestrap";
+
+  import {
+    ExclamationCircleFill,
+    QuestionCircleFill,
+  } from "svelte-bootstrap-icons";
 
   import "@fontsource/roboto/100";
   import "@fontsource/roboto/200";
@@ -19,26 +25,28 @@
   import "@fontsource/roboto/700";
   import "@fontsource/roboto/800";
 
-  import { i18n } from "./i18n";
+  import "@fontsource/jetbrains-mono/100";
+  import "@fontsource/jetbrains-mono/500";
+
+  import { specification } from "./specification/specification";
+  import Endpoint from "./components/Endpoint.svelte";
 </script>
 
 <main class="app">
-  <Container class="pt-5">
+  <Container class="pt-5 pb-5">
     <Row class="g-4">
       <Col md="4" lg="3">
         <div class="sticky">
           <Card class="mb-4">
             <CardHeader>
-              <CardTitle class="mb-0">{i18n.t("sidebar.contents.title")}</CardTitle>
+              <CardTitle class="mb-0">Contents</CardTitle>
             </CardHeader>
 
-            <CardBody>
-              TODO
-            </CardBody>
+            <CardBody>TODO</CardBody>
 
             <CardFooter>
               <a href="https://github.com/numenmc/donut-api-doc">
-                {i18n.t("sidebar.contribute_notice")}
+                Contribute on GitHub
               </a>
             </CardFooter>
           </Card>
@@ -46,10 +54,34 @@
       </Col>
 
       <Col md="8" lg="9">
-        <h1 class="display-5">{i18n.t("info.title")}</h1>
+        <h1 class="display-5">DonutSMP API Documentation</h1>
         <p class="lead">
-          {@html i18n.t("info.lead_text", { link: "<a href=\"https://api.donutsmp.net\">https://api.donutsmp.net</a>" })}
+          Below is the community maintained version of the API documentation
+          form the DonutSMP Data API. If you're looking for the original
+          documentation, it can be viewed at <a href="https://api.donutsmp.net"
+            >https://api.donutsmp.net</a
+          >.
         </p>
+
+        <Alert color="primary">
+          <QuestionCircleFill class="icon r"></QuestionCircleFill>
+          This API's base url is <code>{specification.baseUrl}</code>. To use
+          the endpoints you must retrieve an API key using <code>/api</code>
+          in-game and supplying it to the <code>Authorization</code> header in
+          the format <code>Bearer (token)</code>.
+        </Alert>
+        <Alert color="warning">
+          <ExclamationCircleFill class="icon r"></ExclamationCircleFill>
+          Much of this documentation diverges from REST/OpenAPI conventions. These
+          behaviours originate from the upstream API and are documented as-is.
+        </Alert>
+
+        <div style="margin-bottom: 75px;"></div>
+        <!-- Spacer -->
+
+        {#each specification.endpoints as endpoint}
+          <Endpoint {endpoint}></Endpoint>
+        {/each}
       </Col>
     </Row>
   </Container>
