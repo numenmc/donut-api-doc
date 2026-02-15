@@ -81,7 +81,13 @@
           </div>
 
           <p
-            style="font-size: 8pt; text-transform: uppercase; letter-spacing: 10%; margin-left: 0.3em; margin-right: 0.3em;"
+            style="font-size: 8pt; letter-spacing: 5%; margin-left: 0.3em; margin-right: 0.3em;"
+          >
+            <a href="/.vite/license.md">Third Party Notices</a>
+          </p>
+
+          <p
+            style="font-size: 8pt; letter-spacing: 5%; margin-left: 0.3em; margin-right: 0.3em;"
           >
             This website is not affiliated with, endorsed by, or sponsored by
             DonutSMP or Minecraft.
