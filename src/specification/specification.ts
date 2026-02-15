@@ -13,12 +13,16 @@ import { leaderboard_playtime_v1 } from "./endpoints/leaderboards/leaderboard_pl
 import { leaderboard_sell_v1 } from "./endpoints/leaderboards/leaderboard_sell_v1";
 import { leaderboard_shards_v1 } from "./endpoints/leaderboards/leaderboard_shards_v1";
 import { leaderboard_shop_v1 } from "./endpoints/leaderboards/leaderboard_shop_v1";
+import { lookup_v1 } from "./endpoints/lookup_v1";
+import { stats_v1 } from "./endpoints/stats_v1";
 
 export const specification: ApiSpecification = {
     baseUrl: "https://api.donutsmp.net/",
     endpoints: [
         auction_list_v1_endpoint,
         auction_transactions_v1_endpoint,
+        lookup_v1,
+        stats_v1,
         leaderboard_broken_blocks_v1_endpoint,
         leaderboard_deaths_v1,
         leaderboard_kills_v1,

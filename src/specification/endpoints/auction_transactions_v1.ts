@@ -11,7 +11,7 @@ import { unauthorizedResponse } from "../common/unauthorizedResponse";
 
 export const auction_transactions_v1_endpoint: Endpoint = {
   endpoint: ["v1", "auction", "transactions", new URLParameter("page")],
-  method: RequestMethod.POST,
+  method: RequestMethod.GET,
   description:
     "Retrieve a list of recent transactions made on the Auction House.",
   remarks: [
