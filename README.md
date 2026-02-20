@@ -40,4 +40,4 @@ Please submit an issue if there is any problem with the documentation. If you wa
 - Make sure you run the `lint:fix` and `format` npm scripts
 
 # Third-Party Notices & Licensing
-This project is licensed under MIT. You can view the license [here](https://github.com/numenmc/donut-api-doc/LICENSE). Third-party notices are included in the build. You can read them at https://donutapi.numenmc.me/.vite/license.md
+This project is licensed under MIT. You can view the license [here](https://github.com/numenmc/donut-api-doc/blob/main/LICENSE). Third-party notices are included in the build. You can read them at https://donutapi.numenmc.me/.vite/license.md
