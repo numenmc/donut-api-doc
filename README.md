@@ -18,9 +18,6 @@ API specifications written as TypeScript interface implementations are rendered 
 # Live Documentation
 The live site is available at https://donutapi.numenmc.me
 
-# Give me your money
-If you like what I do, consider supporting me on [Patreon](https://www.patreon.com/cw/numenmc).
-
 # Build from source
 ```
 git clone https://github.com/numenmc/donut-api-doc.git
