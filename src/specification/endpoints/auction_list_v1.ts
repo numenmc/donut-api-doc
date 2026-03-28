@@ -11,7 +11,7 @@ import { unauthorizedResponse } from "../common/unauthorizedResponse";
 
 export const auction_list_v1_endpoint: Endpoint = {
   endpoint: ["v1", "auction", "list", new URLParameter("page")],
-  method: RequestMethod.POST,
+  method: RequestMethod.GET,
   description: "Retrieve a page of Auction House entries.",
   remarks: [
     "Each page is always 44 items long",
